@@ -199,6 +199,27 @@ func newPathsFilter(env *dmenv.Dme) *dm.PathsFilter {
 	})
 }
 
+func (m *Dmm) ReplaceType(oldType string, newType string) error {
+    // Get the new type from the environment
+    newPrefab, exists := PrefabStorage.Get(newType)
+    if !exists {
+        return fmt.Errorf("replacement type %s does not exist", newType)
+    }
+
+    // Replace all instances of the old type with the new type
+    for _, tile := range m.Tiles {
+        for idx, prefab := range tile.Prefabs {
+            if prefab.Path == oldType {
+                tile.Prefabs[idx] = newPrefab
+            }
+        }
+    }
+
+    return nil
+}
+
+const DefaultReplacementType = "/obj/effect"  // Or any other appropriate default type
+
 func (a *app) loadMap(path string, workspace *workspace.Workspace) {
 	log.Printf("opening map [%s]...", path)
 
@@ -229,23 +250,27 @@ func (a *app) loadMap(path string, workspace *workspace.Workspace) {
 	if a.layout.WsArea.OpenMap(dmm, workspace) {
 		a.layout.Prefabs.Sync()
 
-		// TODO: processing for unknown prefabs
-		if len(unknownPrefabs) != 0 {
-			var prefabsNames string
-			for path := range unknownPrefabs {
-				prefabsNames += " - " + path + "\n"
-			}
+        if len(unknownPrefabs) != 0 {
+            var prefabsNames string
+            for path := range unknownPrefabs {
+                prefabsNames += " - " + path + "\n"
+                // Replace unknown types with the default replacement
+                if err := dmm.ReplaceType(path, DefaultReplacementType); err != nil {
+                    log.Printf("failed to replace unknown type %s: %v", path, err)
+                }
+            }
 
-			dialog.Open(dialog.TypeInformation{
-				Title: "Unknown Types [WIP]",
-				Information: fmt.Sprintf(
-					"There are unknown types on the map: %s\n"+
-						"Types below will be discarded on save:\n"+
-						"%s", dmm.Name, prefabsNames,
-				),
-			})
-		}
-	}
+            dialog.Open(dialog.TypeInformation{
+                Title: "Unknown Types Replaced",
+                Information: fmt.Sprintf(
+                    "The following unknown types on map %s have been replaced with %s:\n%s",
+                    dmm.Name,
+                    DefaultReplacementType,
+                    prefabsNames,
+                ),
+            })
+        }
+    }
 	a.layout.Search.Free()
 
 	runtime.GC()
