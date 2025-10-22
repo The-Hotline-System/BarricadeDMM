@@ -29,11 +29,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, windows-2019, macos-latest ]
+        os: [ ubuntu-latest, windows-2022, macos-latest ]
         include:
           - os: ubuntu-latest
             rust-target: 1.82-x86_64-unknown-linux-gnu
-          - os: windows-2019
+          - os: windows-2022
             rust-target: 1.82-x86_64-pc-windows-gnu
           - os: macos-latest
             rust-target: 1.82-x86_64-apple-darwin
