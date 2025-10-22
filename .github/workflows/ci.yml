@@ -1,29 +1,29 @@
 name: CI
 on: [ push, pull_request ]
 jobs:
-  # lint-source-code:
-  #   name: Lint Source Code
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v4
-  #
-  #     - name: Dependencies
-  #       run: |
-  #         sudo apt clean
-  #         sudo apt update
-  #         sudo apt install xorg-dev libgtk-3-dev
-  #
-  #     - name: Setup Golang
-  #       uses: actions/setup-go@v5
-  #       with:
-  #         go-version-file: go.mod
-  #         cache: false
-  #
-  #     - name: Lint
-  #       uses: golangci/golangci-lint-action@v8
-  #       with:
-  #         version: v2.1.5
+  lint-source-code:
+    name: Lint Source Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Dependencies
+        run: |
+          sudo apt clean
+          sudo apt update
+          sudo apt install xorg-dev libgtk-3-dev
+
+      - name: Setup Golang
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      - name: Lint
+        uses: golangci/golangci-lint-action@v8
+        with:
+          version: v2.1.5
 
   build:
     strategy:
