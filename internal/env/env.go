@@ -3,7 +3,7 @@ package env
 const Undefined = "undefined"
 
 var (
-	Title    = "BarricadeDMM"
+	Title    = "RedDMM"
 	Version  = Undefined
 	Revision = Undefined
 	GitHub   = "https://github.com/SpaiR/StrongDMM"
