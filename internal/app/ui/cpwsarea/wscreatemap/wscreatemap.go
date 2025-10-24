@@ -41,7 +41,7 @@ type WsCreateMap struct {
 func New(app App) *WsCreateMap {
 	format := app.Prefs().Editor.SaveFormat
 	if format == prefs.SaveFormatInitial { // Enforce TGM usage.
-		format = prefs.SaveFormatTGM
+		format = prefs.SaveFormatDMM
 	}
 
 	return &WsCreateMap{

@@ -12,8 +12,6 @@ DMM - a default map format used by the DM map editor
 )
 
 var SaveFormats = []string{
-	SaveFormatInitial,
-	SaveFormatTGM,
 	SaveFormatDMM,
 }
 

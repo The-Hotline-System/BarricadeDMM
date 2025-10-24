@@ -15,7 +15,7 @@ func (ws *WsCreateMap) save(newPath string) {
 	// we assume the data is OK at this point
 	var data = &dmmdata.DmmData{
 		Filepath:   newPath,
-		IsTgm:      ws.format == prefs.SaveFormatTGM,
+		IsTgm:      ws.format == prefs.SaveFormatDMM,
 		LineBreak:  "\n",
 		MaxX:       ws.mapWidth,
 		MaxY:       ws.mapHeight,
