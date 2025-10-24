@@ -43,9 +43,11 @@ func (a *app) checkForUpdatesV(forceAvailable bool) {
 
 	// Do force update only if we're using a concrete editor version.
 	//goland:noinspection GoBoolExpressions
-	if a.Prefs().Application.AutoUpdate && env.Version != env.Undefined {
-		a.selfUpdate()
-	}
+	/*
+		if a.Prefs().Application.AutoUpdate && env.Version != env.Undefined {
+			a.selfUpdate()
+		}
+	*/
 }
 
 func (a *app) selfUpdate() {

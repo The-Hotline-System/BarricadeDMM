@@ -261,12 +261,13 @@ func (m *Menu) Process() {
 				Tooltip(rsc.SupportTxt).
 				Icon(icon.KoFi),
 		}),
-
-		w.Custom(func() {
-			if m.updateStatus != upStatusNone {
-				m.showUpdateMenu()
-			}
-		}),
+		/*
+			w.Custom(func() {
+				if m.updateStatus != upStatusNone {
+					m.showUpdateMenu()
+				}
+			}),
+		*/
 	}).Build()
 }
 
